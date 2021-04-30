@@ -21,8 +21,6 @@ const BASE_URL = "http://127.0.0.1:3000";
 
 
 
-
-
 function getAllSchedulesWithChild(){
     fetch (`${BASE_URL}/schedules`)
     .then((resp) => {
