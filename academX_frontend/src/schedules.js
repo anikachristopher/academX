@@ -1,0 +1,3 @@
+class Schedule{
+    //constructor function
+}
