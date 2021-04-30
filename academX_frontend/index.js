@@ -71,17 +71,46 @@ function displayMasterSchedules(masterSchedule){
       </div>`
     );
   }
-
+  deleteButton();
 
 }
 
+//basic delete functionality - COME BACK TO THIS
+// function deleteButton(){
+//     let btns = document.querySelectorAll(".delBtn");
+//     for (let i = 0; i < btns.length; i++){
+//         btns[i].addEventListener("click", deleteEntry);
+//   }
+// }
 
+// function deleteEntry(e){
+//     let btnNumber = parseInt(e.target.id);
+//     deleteSchedule(btnNumber);
+// }
 
+function buildChild(cid){
+    fetch (`${BASE_URL}/children/$(cid)`) 
+    .then((resp) => resp.json())
+    .then((child) => {
+        if (pointer < masterCount) {
+            let childPost = document.getElementById(`children-container${cid}`);
+            childPost.insertAdjacentHTML(
+                "beforeend",
+          `<div style="text-align: justify; width: 800px;">
+            ${child.name}&emsp;
+            <br /><br />
+            ${child.age}&emsp;
+            <br /><br />
+            ${child.grade}&emsp;
+            <br /><br />
 
-
-function deleteEntry(){}
-function deleteButton(){}
-function buildChild(){}
+          </div>`
+            );
+        }
+        pointer++
+    }) 
+    
+}
 
 function addNewRecords(){}
 function createSchedule(){}
