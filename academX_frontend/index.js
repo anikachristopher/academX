@@ -31,7 +31,7 @@ function getAllSchedulesWithChild(){
                         displayMasterSchedules(schedules);
     })
     .catch((err) => {
-        console.log("Figure out error message:", err);
+        console.log("Error:", err);
     });
 
 }
@@ -172,10 +172,21 @@ function createSchedule(){
 
 function createChild(){
     //FETCH FROM CHILD ENPOINT USING A POST METHOD
-
-
+    fetch (`${BASE_URL}/children`, {
+        method: "POST",
+        body: JSON.stringify({
+            firstName: first_name,
+            lastName: last_name,
+            age: age,
+            grade: grade,
+        }),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+        });
 
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     getAllSchedulesWithChild();
