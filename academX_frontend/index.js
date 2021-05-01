@@ -61,7 +61,7 @@ function buildChild(cid){
 
 function displayMasterSchedules(masterSchedule){
     let id;
-  for (let i = 0; i <=masterCount; i++){
+  for (let i = 0; i <=masterCount; i++){ //line 80
       id = masterSchedule[i].child_id;
       let schedule_id = masterSchedule[i].id;
       let weekday = masterSchedule[i].weekday;
@@ -114,15 +114,21 @@ function displayMasterSchedules(masterSchedule){
 
 
 
-// function addNewRecords(){
-//   let childfirstName = document.querySelector("#input-firstname").value;
-//   let childlastName = document.querySelector("#input-lastname").value;
-//   let childGrade = document.querySelector("#input-grade").value;
-//   let childAge = document.querySelector("#input-age").value;
+function addNewRecords(){
+  let childfirstName = document.querySelector("#input-first_name").value;
+  let childlastName = document.querySelector("#input-last_name").value;
+  let childGrade = document.querySelector("#input-grade").value;
+  let childAge = document.querySelector("#input-age").value;
 
-//   let companyName = document.querySelector("#input-companyname").value;
-//   let description = document.querySelector("#input-description").value;
-// }
+  let scheduleWeekday = document.querySelector("#input-weekday").value;
+  let scheduleDate = document.querySelector("#input-date").value;
+  let scheduleSubject = document.querySelector("#input-subject").value;
+  let ScheduleContent = document.querySelector("#input-content").value;
+
+  addChild(childfirstName, childlastName, childGrade, childAge);
+  addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, ScheduleContent);
+
+}
 
 
 
