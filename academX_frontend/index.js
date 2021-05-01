@@ -100,17 +100,17 @@ function displayMasterSchedules(masterSchedule){
 }
 
 // basic delete functionality - COME BACK TO THIS
-// function deleteButton(){
-//     let btns = document.querySelectorAll(".delBtn");
-//     for (let i = 0; i < btns.length; i++){
-//         btns[i].addEventListener("click", deleteEntry);
-//   }
-// }
+function deleteButton(){
+    let btns = document.querySelectorAll(".delBtn");
+    for (let i = 0; i < btns.length; i++){
+        btns[i].addEventListener("click", deleteEntry);
+  }
+}
 
-// function deleteEntry(e){
-//     let btnNumber = parseInt(e.target.id);
-//     deleteSchedule(btnNumber);
-// }
+function deleteEntry(e){
+    let btnNumber = parseInt(e.target.id);
+    deleteSchedule(btnNumber);
+}
 
 
 
@@ -186,6 +186,17 @@ function createChild(){
         });
 
 }
+
+function deleteSchedule(id) {
+    // alert(id);
+    pointer = 0;
+    scheduleEntry.innerHTML = "";
+    fetch(`${BASE_URL}/schedules/${id}`, {
+      method: "DELETE",
+    });
+    alert("Schedule Deleted!");
+    getAllSchedulesWithChild();
+  }
 
 
 document.addEventListener("DOMContentLoaded", () => {
