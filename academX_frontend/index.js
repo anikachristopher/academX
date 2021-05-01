@@ -142,7 +142,22 @@ function clearModal(){}
 
 function createSchedule(){
     //FETCH FROM SCHEDULES ENDPOINT USING A POST METHOD
-    
+    fetch (`${BASE_URL}/schedules`, {
+        method: "POST",
+        body: JSON.stringify({
+            weekday: scheduleWeekday,
+            date: scheduleDate,
+            subject: scheduleSubject,
+            content: scheduleContent,
+        }),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+        })
+        .then(function(response){
+            return response.json();
+        });
+
 }
 
 function createChild(){
