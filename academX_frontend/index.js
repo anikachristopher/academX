@@ -128,24 +128,29 @@ function addNewRecords(){
   addChild(childfirstName, childlastName, childGrade, childAge);
   addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, ScheduleContent);
 
+  pointer = 0; //glob var
+  scheduleEntry.innerHTML = "";
+  clearModal();
+  modals.style.display= "none"
+  //COME BACK AND ADD AN ALERT
+  getAllSchedulesWithChild();
+
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-function createSchedule(){}
 function clearModal(){}
-function createPost(){}
+
+
+function createSchedule(){
+    //FETCH FROM SCHEDULES ENDPOINT USING A POST METHOD
+    
+}
+
+function createChild(){
+    //FETCH FROM CHILD ENPOINT USING A POST METHOD
+
+
+
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     getAllSchedulesWithChild();
