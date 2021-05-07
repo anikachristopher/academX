@@ -1,9 +1,11 @@
 let master;
 let masterCount;
 let masterCountMaxId;
+let lastChildInsertId = 0;
 let pointer = 0;
 const modals = document.getElementById("myModal");
 const scheduleEntry = document.getElementById("schedules-container");
+
 
 
 const BASE_URL = "http://127.0.0.1:3000";
@@ -27,8 +29,10 @@ function getAllSchedulesWithChild(){
     .then((resp) => {
         return resp.json();
     })
-    .then((schedules) => {masterCount = schedules.length; 
-                        displayMasterSchedules(schedules);
+    .then((schedules) => {
+        masterCount = schedules.length; 
+        // console.log(schedules[0].child_id);
+        displayMasterSchedules(schedules);
     })
     .catch((err) => {
         console.log("Error:", err);
@@ -40,7 +44,7 @@ function buildChild(cid){
     fetch (`${BASE_URL}/children/${cid}`) 
     .then((resp) => resp.json())
     .then((child) => {
-        if (pointer <= masterCount) {
+        if (pointer < masterCount) {
             let childPost = document.getElementById(`children-container${cid}`);
             childPost.insertAdjacentHTML(
                 "beforeend",
@@ -57,12 +61,23 @@ function buildChild(cid){
     }) 
     
 }
+// basic delete functionality - COME BACK TO THIS
+function deleteButton(){
+    let btns = document.querySelectorAll(".delBtn");
+    for (let i = 0; i < btns.length; i++){
+        btns[i].addEventListener("click", deleteEntry);
+  }
 
+function deleteEntry(e){
+    let btnNumber = parseInt(e.target.id);
+    deleteSchedule(btnNumber);
+}
+}
 
 function displayMasterSchedules(masterSchedule){
-    let id;
-  for (let i = 0; i <=masterCount; i++){ //line 80
-      id = masterSchedule[i].child_id;
+  for (let i = 0; i <masterCount; i++){ //line 80 min 48:54
+      let id = masterSchedule[i].child_id;
+    //   console.log(id);
       let schedule_id = masterSchedule[i].id;
       let weekday = masterSchedule[i].weekday;
       let date = masterSchedule[i].date;
@@ -99,34 +114,43 @@ function displayMasterSchedules(masterSchedule){
 
 }
 
-// basic delete functionality - COME BACK TO THIS
-function deleteButton(){
-    let btns = document.querySelectorAll(".delBtn");
-    for (let i = 0; i < btns.length; i++){
-        btns[i].addEventListener("click", deleteEntry);
-  }
+function getLastInsertedChild(){
+    fetch (`${BASE_URL}/children`)
+    .then((resp) => {
+        console.log(resp.json);
+        return resp.json();
+    })
+    .then((children) => {
+        console.log(children);
+        alert("we in here");
+        // lastChildInsertId = children.slice(-1).pop();
+        // alert(children);
+    })
+    .catch((err) => {
+        alert("Error:", err);
+    });
+
 }
-
-function deleteEntry(e){
-    let btnNumber = parseInt(e.target.id);
-    deleteSchedule(btnNumber);
-}
-
-
 
 function addNewRecords(){
-  let childfirstName = document.querySelector("#input-first_name").value;
-  let childlastName = document.querySelector("#input-last_name").value;
+  let childfirstName = document.querySelector("#input-firstname").value;
+  let childlastName = document.querySelector("#input-lastname").value;
   let childGrade = document.querySelector("#input-grade").value;
   let childAge = document.querySelector("#input-age").value;
-
+ 
   let scheduleWeekday = document.querySelector("#input-weekday").value;
   let scheduleDate = document.querySelector("#input-date").value;
   let scheduleSubject = document.querySelector("#input-subject").value;
-  let ScheduleContent = document.querySelector("#input-content").value;
+  let scheduleContent = document.querySelector("#input-content").value;
 
-  addChild(childfirstName, childlastName, childGrade, childAge);
-  addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, ScheduleContent);
+  addChild(childfirstName, childlastName, childAge, childGrade);
+  alert("we about to go in");
+  getLastInsertedChild();
+  
+  
+//   addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, scheduleContent, lastChildInsertId);
+alert(lastChildInsertId);  
+addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, scheduleContent, 2);
 
   pointer = 0; //glob var
   scheduleEntry.innerHTML = "";
@@ -139,8 +163,8 @@ function addNewRecords(){
 
 //CLEAR THE MODAL FIELDS AFTER ENTRY
 function clearModal(){
-    document.querySelector("#input-first_name").value = "";
-    document.querySelector("#input-last_name").value = "";
+    document.querySelector("#input-firstname").value = "";
+    document.querySelector("#input-lastname").value = "";
     document.querySelector("#input-grade").value = "";
     document.querySelector("#input-age").value = "";
     document.querySelector("#input-weekday").value = "";
@@ -150,7 +174,7 @@ function clearModal(){
 }
 
 
-function createSchedule(){
+function addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, scheduleContent, child_id){
     //FETCH FROM SCHEDULES ENDPOINT USING A POST METHOD
     fetch (`${BASE_URL}/schedules`, {
         method: "POST",
@@ -159,26 +183,23 @@ function createSchedule(){
             date: scheduleDate,
             subject: scheduleSubject,
             content: scheduleContent,
+            child_id: child_id
         }),
         headers: {
             "Content-Type": "application/json; charset=UTF-8",
         },
-        })
-        .then(function(response){
-            return response.json();
         });
-
 }
 
-function createChild(){
+function addChild(childfirstName, childlastName, childAge, childGrade){
     //FETCH FROM CHILD ENPOINT USING A POST METHOD
     fetch (`${BASE_URL}/children`, {
         method: "POST",
         body: JSON.stringify({
-            firstName: first_name,
-            lastName: last_name,
-            age: age,
-            grade: grade,
+            first_name: childfirstName,
+            last_name: childlastName,
+            age: childAge,
+            grade: childGrade,
         }),
         headers: {
             "Content-Type": "application/json; charset=UTF-8",
@@ -186,6 +207,8 @@ function createChild(){
         });
 
 }
+
+
 
 function deleteSchedule(id) {
     // alert(id);
@@ -200,5 +223,7 @@ function deleteSchedule(id) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    let saveBTn = document.getElementById("entryForm");
+    saveBTn.addEventListener("submit", addNewRecords);
     getAllSchedulesWithChild();
 });
