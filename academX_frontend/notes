@@ -1,0 +1,62 @@
+document.addEventListener("DOMContentLoaded", () => {
+  //the document represents the actual HTML page. The DOM itself is attaching the event listener which is sending this flag
+  //the () is an anonymous function and the => indicates to JS that the anonymous function is being declared
+  //the , between the DOM contect loaded flag and the anonymous function lets us recognize that what we're passsing back is a callback function
+  // addEventListener takes a name as the first parameter and takes a callback function (the function which will be triggered when the DOM loads)
+
+  getAllSchedulesWithChild(); 
+});
+//we want all the functions to be available to avoid any hoisting issues
+
+
+getAllSchedulesWithChild function:
+
+the Fetch initiates an HTTP request (using methods - get, put, patch, delete etc) and reponse to the backend API
+In the fetch request line 45, the only parameter which is passed in is the URL endpoint
+Certain URLs will deliver certain info which can be queried
+The promise return is where they make sure or promise to have some for of response. The result can be success or fail.
+Line 46 the .then captures the response (this is the HTTP response we're getting)
+The response can be returned in any data type (string, object etc)
+Line 47, we're saying we expect the body of the object to be JSON. Treat it like a JSON object. We want it to format this and return the final format to us
+Line 49 picks up this final format. The name in the brackets can be anything we want, also called (data)
+Line 51 is where the global variable comes in. We are keeping track of the total number of schedules
+Line 52 we call the function displayMasterSchedule passing in the data we received in Line 49.
+Line 54 In order for the code to be complete we have to handle the failure that we may get from the promise.
+Within it we are passing in a callback function which is anonymous. It has data that comes back whihc we usually write as error
+We console log the message that came back from the API.
+We used the schedule to fetch since in the schema there is a foreign key for the child
+
+
+displayMasterSchedule function:
+
+In the getAllSchedulesWithChild, line 52, we passed in the the data in the function
+The value of what is being returned to us is an array of objects in a JSON format
+Line 80 we're using a for loop - a control statement that allows me to control the data - we have an array and are trying to get particular infor out of it. But we also have to build things out of it
+3 things are always in the for loop - 1. declare the variable that's going to keep count 2. the limit (how much we're going to count for) 3. how we increment or decrement.
+Line 81 we declare and set our counter at 0. We want it to loop for the length of the array. Then the i++ increments by 1
+Line 81-84 - we declare a variable and use dot notation to access information of each object in the array
+So the first time we go through the array line 81 will grab the object at zero and then the dot notation would allow us to access the property ID.
+Line 85 is how we would actually get the child info by calling a function within the loop
+We call a function called buildChild and we pass in the childId
+Line 87 is where we get the actual schedule-container div, manipulating the DOM object document.getElementById, storing it in a variable called newPost
+line 88 we access the built in function called insertAdjacentHTML
+Line 91-94 we use the same variables that we capture in lines 81-84
+Line 95 is where we declare the space that programatically and on the fly, builds a space to store the children info when creating a schedule and putting it in the schedules container 
+Line 97 - since we know we want to have a delete function, we have to be able to differentiate each record 
+In order to differentiate each record we have to make each ID unique
+In order to make out children container on line 95 unique each time we loop through, we concatenated the i number
+Line 97 each delete button has to be unique to match each entry
+We gave the button an ID and a class - this is to ensure that we cal select all the delete buttons and assign listeners
+masterSchedule is an array - when i is set to zero, masterschedule0 would be the object in that position in the array
+The dot notation allows us to access the property 
+When the loop gets to line 100 it will increment i first, then test the expression i < masterCount, once it's true it will come back in the loop at line 81
+We use the for loop because we don't know the size of the array and we want it to loop through every value in the array
+We are incrementing because we don't know how many objects are stored in the master count
+Line 85 the program made a function call to buildChild and it would be passing in the child id
+Line 95 is where we create a div to hold the particular child associated with the schedule in the for loop
+
+buildChild function
+This function is getting the info of the child associated to the schedule
+Line 59 is for us to get one child, not all children by making an http request to the endpoint
+Line 63 we're testing the pointer to the end of the masterCount
+We did this because on line 64 we are getting the elementById and passing the name of the element

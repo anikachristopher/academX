@@ -4,7 +4,6 @@ class ChildrenController < ApplicationController
   # GET /children
   def index
     @children = Child.all
-
     render json: @children
   end
 
@@ -12,6 +11,13 @@ class ChildrenController < ApplicationController
   def show
     render json: @child
   end
+
+
+  # GET /children/max
+  # def max
+  #   @nextId = Child.maximum(:id).next
+  #   render json: @nextId  
+  # end
 
   # POST /children
   def create
