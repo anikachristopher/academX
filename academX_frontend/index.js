@@ -59,8 +59,8 @@ function buildChild(cid){
         }
         pointer++;
     }) 
-    
 }
+
 // basic delete functionality - COME BACK TO THIS
 function deleteButton(){
     let btns = document.querySelectorAll(".delBtn");
@@ -114,22 +114,83 @@ function displayMasterSchedules(masterSchedule){
 
 }
 
-function getLastInsertedChild(){
-    fetch (`${BASE_URL}/children`)
+function getLastInsertedChild(result){
+    alert(result);
+    fetch (`${BASE_URL}/children/lastChildId`)
     .then((resp) => {
-        console.log(resp.json);
         return resp.json();
     })
-    .then((children) => {
-        console.log(children);
-        alert("we in here");
-        // lastChildInsertId = children.slice(-1).pop();
-        // alert(children);
+    .then((lastChildId) => {
+        lastChildInsertId = lastChildId;
+        console.log(lastChildInsertId);
     })
     .catch((err) => {
-        alert("Error:", err);
+        console.log("Error:", err);
     });
 
+}
+function simpleScheduleInsertTest(scheduleWeekday,
+    scheduleDate,
+    scheduleSubject,
+    scheduleContent){
+    fetch (`${BASE_URL}/schedules`, {
+        method: "POST",
+        body: JSON.stringify({
+            weekday: scheduleWeekday,
+            date: scheduleDate,
+            subject: scheduleSubject,
+            content: scheduleContent,
+            child_id: 2,
+        }),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+    });
+}
+
+function InsertChildandSchedule(
+    childfirstName,
+    childlastName,
+    childAge,
+    childGrade,
+    scheduleWeekday,
+    scheduleDate,
+    scheduleSubject,
+    scheduleContent){
+    //FETCH FROM CHILD ENPOINT USING A POST METHOD
+    fetch (`${BASE_URL}/children`, {
+        method: "POST",
+        body: JSON.stringify({
+            first_name: childfirstName,
+            last_name: childlastName,
+            age: childAge,
+            grade: childGrade,
+        }),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+    }).then(response => {
+        alert(response);
+        response.json();
+    }).then(result => {
+        getLastInsertedChild(result);
+        return fetch (`${BASE_URL}/schedules`, {
+            method: "POST",
+            body: JSON.stringify({
+                weekday: scheduleWeekday,
+                date: scheduleDate,
+                subject: scheduleSubject,
+                content: scheduleContent,
+                child_id: 2
+            }),
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8",
+            },
+        }).then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+    })
 }
 
 function addNewRecords(){
@@ -143,21 +204,27 @@ function addNewRecords(){
   let scheduleSubject = document.querySelector("#input-subject").value;
   let scheduleContent = document.querySelector("#input-content").value;
 
-  addChild(childfirstName, childlastName, childAge, childGrade);
-  alert("we about to go in");
-  getLastInsertedChild();
-  
-  
-//   addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, scheduleContent, lastChildInsertId);
-alert(lastChildInsertId);  
-addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, scheduleContent, 2);
+//   InsertChildandSchedule(
+//       childfirstName,
+//       childlastName,
+//       childAge,
+//       childGrade,
+//       scheduleWeekday,
+//       scheduleDate,
+//       scheduleSubject,
+//       scheduleContent);
 
-  pointer = 0; //glob var
-  scheduleEntry.innerHTML = "";
-  clearModal();
-  modals.style.display= "none"
-  //COME BACK AND ADD AN ALERT
-  getAllSchedulesWithChild();
+simpleScheduleInsertTest( scheduleWeekday,
+          scheduleDate,
+          scheduleSubject,
+          scheduleContent);
+
+//   pointer = 0; 
+//   scheduleEntry.innerHTML = "";
+//   clearModal();
+//   modals.style.display= "none"
+ 
+//   getAllSchedulesWithChild();
 
 }
 
@@ -174,39 +241,27 @@ function clearModal(){
 }
 
 
-function addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, scheduleContent, child_id){
-    //FETCH FROM SCHEDULES ENDPOINT USING A POST METHOD
-    fetch (`${BASE_URL}/schedules`, {
-        method: "POST",
-        body: JSON.stringify({
-            weekday: scheduleWeekday,
-            date: scheduleDate,
-            subject: scheduleSubject,
-            content: scheduleContent,
-            child_id: child_id
-        }),
-        headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-        },
-        });
-}
+// function addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, scheduleContent, child_id){
+//     //FETCH FROM SCHEDULES ENDPOINT USING A POST METHOD
 
-function addChild(childfirstName, childlastName, childAge, childGrade){
-    //FETCH FROM CHILD ENPOINT USING A POST METHOD
-    fetch (`${BASE_URL}/children`, {
-        method: "POST",
-        body: JSON.stringify({
-            first_name: childfirstName,
-            last_name: childlastName,
-            age: childAge,
-            grade: childGrade,
-        }),
-        headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-        },
-        });
+// alert(`${scheduleWeekday} ${scheduleDate} ${scheduleSubject} ${scheduleContent} ${child_id} `)
 
-}
+//     fetch (`${BASE_URL}/schedules`, {
+//         method: "POST",
+//         body: JSON.stringify({
+//             weekday: scheduleWeekday,
+//             date: scheduleDate,
+//             subject: scheduleSubject,
+//             content: scheduleContent,
+//             child_id: child_id
+//         }),
+//         headers: {
+//             "Content-Type": "application/json; charset=UTF-8",
+//         },
+//         });
+// }
+
+
 
 
 
