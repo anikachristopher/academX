@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 2021_04_30_024108) do
     t.integer "child_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["child_id"], name: "index_schedules_on_child_id"
   end
 
 end

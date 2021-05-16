@@ -13,11 +13,11 @@ class ChildrenController < ApplicationController
   end
 
 
-  # GET /children/max
-  # def max
-  #   @nextId = Child.maximum(:id).next
-  #   render json: @nextId  
-  # end
+  # GET /children/last Child Inserted Id
+  def lastChildId
+    @lastId = Child.maximum(:id)
+    render json: @lastId  
+  end
 
   # POST /children
   def create

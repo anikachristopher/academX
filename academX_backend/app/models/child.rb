@@ -1,3 +1,3 @@
 class Child < ApplicationRecord
-    has_many :schedules
+    has_one :schedule
 end

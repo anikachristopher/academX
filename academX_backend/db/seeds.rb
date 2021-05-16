@@ -7,7 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-Child.create([{first_name: "Malik", last_name: "Morris", age: "9", grade: "4"}])
+Child.create([
+    {first_name: "Malik", last_name: "Morris", age: "9", grade: "4"},
+    {first_name: "Martin", last_name: "Lawrence", age: "19", grade: "R"}
+    ])
 
 Schedule.create([
     {weekday: "Monday", date: "4/26/2021", subject: "Math", content: "Completed chapter 1 of Go Math", child_id: 1}
