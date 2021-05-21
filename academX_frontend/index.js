@@ -1,15 +1,39 @@
-let master;
-let masterCount;
-let masterCountMaxId;
-let lastChildInsertId = 0;
+let scheduleCount;
 let pointer = 0;
-const modals = document.getElementById("myModal");
 const scheduleEntry = document.getElementById("schedules-container");
-
-
 
 const BASE_URL = "http://127.0.0.1:3000";
 
+const childClass = new Child("childList", BASE_URL);
+const scheduleClass = new Schedule(BASE_URL);
+
+
+//gets data for all schedules upon start up and send them to display...
+function getAllSchedulesWithChild() {
+    scheduleClass.getAllSchedule();
+    childClass.getAllChildren();
+  }
+  
+  //gets data for one child upon start up and send them to display...
+  function buildChild(cid) {
+    fetch(`${BASE_URL}/children/${cid}`)
+      .then((resp) => resp.json())
+      .then((child) => {
+        if (pointer < scheduleCount) {
+          let childPost = document.getElementById(`children-container${cid}`);
+          childPost.insertAdjacentHTML(
+            "beforeend",
+            `<div style="text-align: justify; width: 800px;">
+              <h5>First Name: ${child.first_name}&emsp;</h5>
+              <h5>Last Name: ${child.last_name}&emsp;</h5>
+              <h5>Age: ${child.age}&emsp;</h5>
+              <h5>Grade: ${child.grade}&emsp;</h5>
+            </div>`
+          );
+        }
+        pointer++;
+      });
+  }
 
 //global functions
 
