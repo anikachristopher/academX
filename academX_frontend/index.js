@@ -135,6 +135,18 @@ function addCRecords() {
     alert(`${childfirstName} ${childlastName} record saved!`);
 }
 
+//CLEAR THE MODAL FIELDS AFTER ENTRY
+function clearModal(){
+    document.querySelector("#input-firstname").value = "";
+    document.querySelector("#input-lastname").value = "";
+    document.querySelector("#input-grade").value = "";
+    document.querySelector("#input-age").value = "";
+    document.querySelector("#input-weekday").value = "";
+    document.querySelector("#input-date").value = "";
+    document.querySelector("#input-subject").value = "";
+    document.querySelector("#input-content").value = "";
+}
+
 
 function getLastInsertedChild(result){
     alert(result);
@@ -248,18 +260,6 @@ simpleScheduleInsertTest( scheduleWeekday,
  
 //   getAllSchedulesWithChild();
 
-}
-
-//CLEAR THE MODAL FIELDS AFTER ENTRY
-function clearModal(){
-    document.querySelector("#input-firstname").value = "";
-    document.querySelector("#input-lastname").value = "";
-    document.querySelector("#input-grade").value = "";
-    document.querySelector("#input-age").value = "";
-    document.querySelector("#input-weekday").value = "";
-    document.querySelector("#input-date").value = "";
-    document.querySelector("#input-subject").value = "";
-    document.querySelector("#input-content").value = "";
 }
 
 
