@@ -147,120 +147,23 @@ function clearModal(){
     document.querySelector("#input-content").value = "";
 }
 
-
-function getLastInsertedChild(result){
-    alert(result);
-    fetch (`${BASE_URL}/children/lastChildId`)
-    .then((resp) => {
-        return resp.json();
-    })
-    .then((lastChildId) => {
-        lastChildInsertId = lastChildId;
-        console.log(lastChildInsertId);
-    })
-    .catch((err) => {
-        console.log("Error:", err);
-    });
-
-}
-function simpleScheduleInsertTest(scheduleWeekday,
-    scheduleDate,
-    scheduleSubject,
-    scheduleContent){
-    fetch (`${BASE_URL}/schedules`, {
-        method: "POST",
-        body: JSON.stringify({
-            weekday: scheduleWeekday,
-            date: scheduleDate,
-            subject: scheduleSubject,
-            content: scheduleContent,
-            child_id: 2,
-        }),
-        headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-        },
-    });
-}
-
-function InsertChildandSchedule(
-    childfirstName,
-    childlastName,
-    childAge,
-    childGrade,
-    scheduleWeekday,
-    scheduleDate,
-    scheduleSubject,
-    scheduleContent){
-    //FETCH FROM CHILD ENPOINT USING A POST METHOD
-    fetch (`${BASE_URL}/children`, {
-        method: "POST",
-        body: JSON.stringify({
-            first_name: childfirstName,
-            last_name: childlastName,
-            age: childAge,
-            grade: childGrade,
-        }),
-        headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-        },
-    }).then(response => {
-        alert(response);
-        response.json();
-    }).then(result => {
-        getLastInsertedChild(result);
-        return fetch (`${BASE_URL}/schedules`, {
-            method: "POST",
-            body: JSON.stringify({
-                weekday: scheduleWeekday,
-                date: scheduleDate,
-                subject: scheduleSubject,
-                content: scheduleContent,
-                child_id: 2
-            }),
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8",
-            },
-        }).then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-    })
-}
-
-function addNewRecords(){
-  let childfirstName = document.querySelector("#input-firstname").value;
-  let childlastName = document.querySelector("#input-lastname").value;
-  let childGrade = document.querySelector("#input-grade").value;
-  let childAge = document.querySelector("#input-age").value;
- 
-  let scheduleWeekday = document.querySelector("#input-weekday").value;
-  let scheduleDate = document.querySelector("#input-date").value;
-  let scheduleSubject = document.querySelector("#input-subject").value;
-  let scheduleContent = document.querySelector("#input-content").value;
-
-//   InsertChildandSchedule(
-//       childfirstName,
-//       childlastName,
-//       childAge,
-//       childGrade,
-//       scheduleWeekday,
-//       scheduleDate,
-//       scheduleSubject,
-//       scheduleContent);
-
-simpleScheduleInsertTest( scheduleWeekday,
-          scheduleDate,
-          scheduleSubject,
-          scheduleContent);
-
-//   pointer = 0; 
-//   scheduleEntry.innerHTML = "";
-//   clearModal();
-//   modals.style.display= "none"
- 
-//   getAllSchedulesWithChild();
-
-}
+function deleteSchedule(id) {
+    // alert(id);
+    pointer = 0;
+    scheduleEntry.innerHTML = "";
+    scheduleClass.delSchedule(id);
+    alert("Schedule Deleted!");
+    getAllSchedulesWithChild();
+  }
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    let saveChildBtn = document.getElementById("entryChildForm");
+    saveChildBtn.addEventListener("submit", addCRecords);
+    let saveScheduleBtn = document.getElementById("entryScheduleForm");
+    saveScheduleBtn.addEventListener("submit", addScheduleRecords);
+  
+    getAllSchedulesWithChild();
+  });
 
 
 // function addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, scheduleContent, child_id){
@@ -282,21 +185,6 @@ simpleScheduleInsertTest( scheduleWeekday,
 //         },
 //         });
 // }
-
-
-
-
-
-function deleteSchedule(id) {
-    // alert(id);
-    pointer = 0;
-    scheduleEntry.innerHTML = "";
-    fetch(`${BASE_URL}/schedules/${id}`, {
-      method: "DELETE",
-    });
-    alert("Schedule Deleted!");
-    getAllSchedulesWithChild();
-  }
 
 
 document.addEventListener("DOMContentLoaded", () => {
