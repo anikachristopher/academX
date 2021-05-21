@@ -117,32 +117,23 @@ function addScheduleRecords() {
       }
     }
     alert(`${scheduleWeekday} Schedule saved!`);
-  }
+}
   
 
-
-function buildChild(cid){
-    fetch (`${BASE_URL}/children/${cid}`) 
-    .then((resp) => resp.json())
-    .then((child) => {
-        if (pointer < masterCount) {
-            let childPost = document.getElementById(`children-container${cid}`);
-            childPost.insertAdjacentHTML(
-                "beforeend",
-          `<div style="text-align: justify; width: 800px;">
-            <h5>First Name: ${child.first_name}&emsp;</h5>
-            <h5>Last Name: ${child.last_name}&emsp;</h5>
-            <h5>Age: ${child.age}&emsp;</h5>
-            <h5>Grade: ${child.grade}&emsp;</h5>
-
-          </div>`
-            );
-        }
-        pointer++;
-    }) 
+function addCRecords() {
+    let childfirstName = document.querySelector("#input-firstname").value;
+    let childlastName = document.querySelector("#input-lastname").value;
+    let childGrade = document.querySelector("#input-grade").value;
+    let childAge = document.querySelector("#input-age").value;
+  
+    childClass.addChildRecords(
+      childfirstName,
+      childlastName,
+      childGrade,
+      childAge
+    );
+    alert(`${childfirstName} ${childlastName} record saved!`);
 }
-
-
 
 
 function getLastInsertedChild(result){
