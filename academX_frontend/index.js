@@ -75,7 +75,7 @@ function displayMasterSchedules(masterSchedule){
         `<br>
           <div class="ui segment">
               <h4 class="ui horizontal divider header">
-              <i class="child icon"></i>
+              <i class="building icon"></i>
               Schedule
               </h4>
               <h5>Id: ${schedule_id}</h5>
@@ -84,7 +84,7 @@ function displayMasterSchedules(masterSchedule){
               <h5>Subject: ${subject}</h5>
               <h5>Content: ${content}</h5>
               <h4 class="ui horizontal divider header">
-               <i class="building icon"></i>
+               <i class="child icon"></i>
                Child
                </h4>
                <div id="children-container${id}"></div>
@@ -166,29 +166,3 @@ function deleteSchedule(id) {
   });
 
 
-// function addSchedule(scheduleWeekday, scheduleDate, scheduleSubject, scheduleContent, child_id){
-//     //FETCH FROM SCHEDULES ENDPOINT USING A POST METHOD
-
-// alert(`${scheduleWeekday} ${scheduleDate} ${scheduleSubject} ${scheduleContent} ${child_id} `)
-
-//     fetch (`${BASE_URL}/schedules`, {
-//         method: "POST",
-//         body: JSON.stringify({
-//             weekday: scheduleWeekday,
-//             date: scheduleDate,
-//             subject: scheduleSubject,
-//             content: scheduleContent,
-//             child_id: child_id
-//         }),
-//         headers: {
-//             "Content-Type": "application/json; charset=UTF-8",
-//         },
-//         });
-// }
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    let saveBTn = document.getElementById("entryForm");
-    saveBTn.addEventListener("submit", addNewRecords);
-    getAllSchedulesWithChild();
-});
