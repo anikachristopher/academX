@@ -19,69 +19,91 @@
               <header> 
                 
               </header>
-              <!-- Trigger/Open The Modal -->
-    <div class="ui container">
-
-            <h3>Your Weekly Schedule</h3>
-            <button id="myBtn"  class="ui primary button right floated " >Create Schedule</button>
-            <br>
-            <div id="schedules-container"></div>
-            <!-- The Modal -->
-            <div id="myModal" class="modal">
-              <!-- Modal content -->
-              <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>
-                  <div class="row">
-                    <div class="col s4">
-                      <form id="entryForm" class="ui form">
-                        <h1>Child Bio Data</h1>
-                        <label for="input-firstname">First Name</label>
-                        <input type="text" id='input-firstname'  placeholder="First Name" />
-                        <br />
-                        <br />
-                        <label for="input-lastname">Last Name</label>
-                        <input type="text" id='input-lastname'  placeholder="Last Name" />
-                        <br />
-                        <br />
-                        <label for="input-grade">Grade</label>
-                        <input type="text" id='input-grade'  placeholder="Grade" />
-                        <br />
-                        <br />
-                        <label for="input-age">Age</label>
-                        <input type="text" id="input-age"  placeholder="Age" />
-                        <br />
-                        <br /> 
-                        <h1>Schedule Information</h1>                  
-                  <label for="input-weekday">Day</label>
-                  <input type="text" id='input-weekday'  placeholder="Day" />
-                  <br />
-                  <br />
-                  <label for="input-date">Date</label>
-                  <input type="text" id='input-date'  placeholder="Date" />
-                  <br />
-                  <br />
-                  <label for="input-subject">Subject</label>
-                  <input type="text" id='input-subject'  placeholder="Subject" />
-                  <br />
-                  <br />
-                  <label for="input-content">Content</label>
-                  <textarea type="text" id="input-content" cols="30" rows="10" ></textarea>
-                  <br />
-                  <br />
-                  <button id="addRecSave" class="ui primary right floated button" type="submit" >Save</button>
-                  <br />
-                  <br />
-                </form>
-              </div>
-            </div>
-          </p>
+ <!-- Trigger/Open The Modal -->
+ <div class="ui container">
+  <h3>Your Weekly Schedule</h3>
+  <button id="myScheduleBtn"  class="ui primary button right floated " >Create Schedule</button>
+  <button id="myChildBtn"  class="ui primary button right floated " >Register A Child</button>
+  <br>
+  <div id="schedules-container"></div>
+  <!-- The Child Modal -->
+  <div id="myChildModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" id="cClose">&times;</span>
+      <p>
+        <div class="row">
+          <div class="col s4">
+            <form id="entryChildForm" class="ui form">
+              <h1>Child Bio Data</h1>
+              <label for="input-firstname">First Name</label>
+              <input type="text" id='input-firstname'  placeholder="First Name" />
+              <br />
+              <br />
+              <label for="input-lastname">Last Name</label>
+              <input type="text" id='input-lastname'  placeholder="Last Name" />
+              <br />
+              <br />
+              <label for="input-grade">Grade</label>
+              <input type="text" id='input-grade'  placeholder="Grade" />
+              <br />
+              <br />
+              <label for="input-age">Age</label>
+              <input type="text" id="input-age"  placeholder="Age" />
+              <br />
+              <br /> 
+              <button id="addChildRecSave" class="ui primary right floated button" type="submit" >Save</button>
+              <br />
+              <br />
+            </form>
+          </div>
         </div>
-      </div>
+      </p>
     </div>
-    <script src="src/schedule.js"></script>
-    <script src="src/child.js"></script>
-    <script src="index.js"></script>
-    
+  </div>
+  <!-- The Schedule Modal -->
+  <div id="myScheduleModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" id="sClose">&times;</span>
+      <p>
+        <div class="row">
+          <div class="col s4">
+            <form id="entryScheduleForm" class="ui form">
+              <h1>Schedule Information</h1> 
+              <label for="childList">Child:</label>
+              <select name="childList" id="childList" >
+                <option>Select a child to schedule</option>
+              </select>
+              <br />               
+              <label for="input-weekday">Day</label>
+              <input type="text" id='input-weekday'  placeholder="Day" />
+              <br />
+              <br />
+              <label for="input-date">Date</label>
+              <input type="text" id='input-date'  placeholder="Date" />
+              <br />
+              <br />
+              <label for="input-subject">Subject</label>
+              <input type="text" id='input-subject'  placeholder="Subject" />
+              <br />
+              <br />
+              <label for="input-content">Content</label>
+              <textarea type="text" id="input-content" cols="30" rows="10" ></textarea>
+              <br />
+              <br />
+              <button id="addScheduleRecSave" class="ui primary right floated button" type="submit" >Save</button>
+              <br />
+              <br />
+            </form>
+          </div>
+        </div>
+      </p>
+    </div>
+  </div>
+  
+  <script src="./src/child.js"></script>
+  <script src="./src/schedule.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
