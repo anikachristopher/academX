@@ -10,7 +10,7 @@ class Child{
     this.listElement = listElement;
     this.allChildURL = `${BASE_URL}/children`;
   }
-  
+
   addChildRecords(childfirstName, childlastName, childGrade, childAge) {
     fetch(this.allChildURL, {
       method: "POST",
@@ -27,6 +27,21 @@ class Child{
       console.log("Error:", err);
     });
   }
+
+  getAllChildren() {
+    fetch(this.allChildURL)
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((children) => {
+        this.ChildrenRegister = children;
+        this.buildChildList();
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
+  }
+
 
 
 
