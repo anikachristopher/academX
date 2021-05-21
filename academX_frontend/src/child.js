@@ -42,6 +42,19 @@ class Child{
       });
   }
 
+  buildChildList() {
+    let childReg = document.getElementById(this.listElement);
+    for (let i = 0; i < this.ChildrenRegister.length; i++) {
+      let ch_id = this.ChildrenRegister[i].id;
+      let fName = this.ChildrenRegister[i].first_name;
+      let lName = this.ChildrenRegister[i].last_name;
+      let el = document.createElement("option");
+      el.textContent = `${fName} ${lName}`;
+      el.value = `${ch_id}`;
+      childReg.appendChild(el);
+    }
+
+}
 
 
 
