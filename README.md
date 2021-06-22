@@ -5,7 +5,7 @@ An app aimed at providing supplemental support to students attending school from
 ## Installation  
 
 Clone this repo:
-https://github.com/anikachristopher/academx.git
+https://github.com/anikachristopher/academX.git
 
 Navigate:
 
