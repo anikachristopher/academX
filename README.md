@@ -9,9 +9,9 @@ https://github.com/anikachristopher/academX.git
 
 Navigate:
 
-    $ cd academx_backend
+    $ cd academX_backend
 
-Install Dependicies:
+Install Dependencies:
 
     $ bundle install
 
@@ -25,7 +25,7 @@ Start backend-rails server:
 
 Navigate:
 
-    $ cd academx_frontend
+    $ cd academX_frontend
 
 Run: open index.html
 
